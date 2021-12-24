@@ -7,12 +7,12 @@ services:
     ports:
       - "3307:3306"
     environment:
-       - MYSQL_DATABASE="${DB_NAME}"
-       - MYSQL_USER="${USER_NAME}"
-       - MYSQL_ROOT_PASSWORD="${USER_PASSWORD}"
-       - MYSQL_PASSWORD="${USER_PASSWORD}"
+       - MYSQL_DATABASE=${DB_NAME}
+       - MYSQL_USER=${USER_NAME}
+       - MYSQL_ROOT_PASSWORD=${USER_PASSWORD}
+       - MYSQL_PASSWORD=${USER_PASSWORD}
     volumes:
-      - ./data/mysql_lake:/var/lib/mysql/
+      - ../data/mysql_lake:/var/lib/mysql/
   
   postgres-warehouse:
       image: postgres:13
@@ -24,4 +24,4 @@ services:
         - POSTGRES_USER=${USER_NAME}
         - POSTGRES_PASSWORD=${USER_PASSWORD}
       volumes:
-        - ./data/postgres_warehouse:/var/lib/postgresql/
+        - ../data/postgres_warehouse:/var/lib/postgresql/
