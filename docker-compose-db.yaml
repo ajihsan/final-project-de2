@@ -20,10 +20,8 @@ services:
       ports:
         - "5433:5432"
       environment:
-        - POSTGRES_DB="${DB_NAME}"
-        - POSTGRES_USER="${USER_NAME}"
-        - POSTGRES_PASSWORD="${USER_PASSWORD}"
+        - POSTGRES_DB=${DB_NAME}
+        - POSTGRES_USER=${USER_NAME}
+        - POSTGRES_PASSWORD=${USER_PASSWORD}
       volumes:
         - ./data/postgres_warehouse:/var/lib/postgresql/
-
-
