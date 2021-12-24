@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    ports:
+      - "3307:3306"
+    env_file:
+      - mysql.env
+    volumes:
+      - ./data/mysql_lake:/var/lib/mysql/
+  
+  postgres:
+      image: postgres:13
+      restart: always
+      ports:
+        - "5433:5432"
+      env_file:
+        - postgres.env
+      volumes:
+        - ./data/postgres_warehouse:/var/lib/postgresql/
+
+
