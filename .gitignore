@@ -1,2 +1,5 @@
 data/*
 !data/README.md
+
+logs/*
+plugins/*

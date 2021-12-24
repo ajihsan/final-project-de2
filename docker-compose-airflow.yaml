@@ -57,6 +57,8 @@ x-airflow-common:
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+    AIRFLOW_CONN_MYSQL_DATALAKE: mysql://user_dev:pass2021!@localhost:3307/dev
+    AIRFLOW_CONN_POSTGRES_DATAWAREHOUSE: postgresql://user_dev:pass2021!@localhost:5433/dev
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
