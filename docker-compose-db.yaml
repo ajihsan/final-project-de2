@@ -1,23 +1,28 @@
 version: '3'
 
 services:
-  mysql:
+  mysql-lake:
     image: mysql:8
     restart: always
     ports:
       - "3307:3306"
-    env_file:
-      - mysql.env
+    environment:
+       - MYSQL_DATABASE="${DB_NAME}"
+       - MYSQL_USER="${USER_NAME}"
+       - MYSQL_ROOT_PASSWORD="${USER_PASSWORD}"
+       - MYSQL_PASSWORD="${USER_PASSWORD}"
     volumes:
       - ./data/mysql_lake:/var/lib/mysql/
   
-  postgres:
+  postgres-warehouse:
       image: postgres:13
       restart: always
       ports:
         - "5433:5432"
-      env_file:
-        - postgres.env
+      environment:
+        - POSTGRES_DB="${DB_NAME}"
+        - POSTGRES_USER="${USER_NAME}"
+        - POSTGRES_PASSWORD="${USER_PASSWORD}"
       volumes:
         - ./data/postgres_warehouse:/var/lib/postgresql/
 
