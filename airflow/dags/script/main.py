@@ -53,11 +53,15 @@ def insert_raw_to_mysql():
     df = pd.DataFrame(data['data']['content']) 
     
     engine, engine_conn = connection_mysql()
-    df.to_sql(name='staging_table', con=engine, if_exists="replace", index=False)
+    df.to_sql(name='rekapitulasi_kasus_harian', con=engine, if_exists="replace", index=False)
 
     engine.dispose()
 
 
+def populate_dim_table():
+    pass
 
 
+def populate_fact_table():
+    pass
 
