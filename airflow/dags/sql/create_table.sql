@@ -1,14 +1,14 @@
 CREATE TABLE IF NOT EXISTS dim_province (
-    province_id text,
+    province_id text primary key,
     province_name text);
 
 CREATE TABLE IF NOT EXISTS dim_district (
-    district_id text,
+    district_id text primary key,
     province_id text,
     district_name text);
 
 CREATE TABLE IF NOT EXISTS dim_case (
-    id SERIAL,
+    id SERIAL primary key,
     status_name text,
     status_detail text);
 
