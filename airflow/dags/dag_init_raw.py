@@ -25,6 +25,9 @@ with DAG(
     )
 
     # populate table in data warehouse
+    insert_raw_to_warehouse = PythonOperator(
+        task_id="insert_to_warehouse",
+        python_callable=main.insert_raw_to_warehouse
+    )
 
-
-    insert_to_lake >> create_warehouse_table
+    insert_to_lake >> create_warehouse_table >> insert_raw_to_warehouse
