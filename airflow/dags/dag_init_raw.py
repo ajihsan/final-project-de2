@@ -24,7 +24,7 @@ with DAG(
         sql="./sql/create_table.sql",
     )
 
-    # populate table
+    # populate table in data warehouse
 
 
     insert_to_lake >> create_warehouse_table
