@@ -1,5 +1,1 @@
-data/*
 !data/README.md
-
-airflow/logs/*
-airflow/plugins/*
