@@ -60,9 +60,9 @@ x-airflow-common:
     AIRFLOW_CONN_MYSQL_DATALAKE: ${AIRFLOW_CONN_MYSQL_DATALAKE}
     AIRFLOW_CONN_POSTGRES_DATAWAREHOUSE: ${AIRFLOW_CONN_POSTGRES_DATAWAREHOUSE}
   volumes:
-    - ./dags:/opt/airflow/dags
-    - ./logs:/opt/airflow/logs
-    - ./plugins:/opt/airflow/plugins
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./airflow/plugins:/opt/airflow/plugins
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -72,6 +72,31 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+  mysql-lake:
+      image: mysql:8
+      restart: always
+      ports:
+        - "3307:3306"
+      environment:
+        - MYSQL_DATABASE=${DB_NAME}
+        - MYSQL_USER=${USER_NAME}
+        - MYSQL_ROOT_PASSWORD=${USER_PASSWORD}
+        - MYSQL_PASSWORD=${USER_PASSWORD}
+      volumes:
+        - ./data/mysql_lake:/var/lib/mysql/
+  
+  postgres-warehouse:
+      image: postgres:13
+      restart: always
+      ports:
+        - "5433:5432"
+      environment:
+        - POSTGRES_DB=${DB_NAME}
+        - POSTGRES_USER=${USER_NAME}
+        - POSTGRES_PASSWORD=${USER_PASSWORD}
+      volumes:
+        - ./data/postgres_warehouse:/var/lib/postgresql/
+  
   postgres:
     image: postgres:13
     environment:
@@ -79,7 +104,7 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     volumes:
-      - ../data/postgres_airflow:/var/lib/postgresql/
+      - ./data/postgres_airflow:/var/lib/postgresql/
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 5s
